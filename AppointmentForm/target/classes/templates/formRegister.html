@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/navLayout :: head"></head>
+<body style="background-image: url('/images/background.jpg'); background-position: center 150px; ">
+<header th:replace="layout/navLayout :: header"></header>
+
+<div class="container py-4"></div>
+
+<div style="margin: 0 auto; max-width:1000px; border: #1b1e21 4px solid; border-radius: 12px; background: white">
+    <div style="font-size: 30px; padding-left: 50px; padding-bottom: 20px; padding-top: 20px; background: #F5F5F5" th:text="${tituloCard}"></div>
+    <p style="font-size: 16px; border-bottom: #1b1e21 1px solid; padding-left: 50px; padding-bottom: 20px; padding-right: 50px; background: #F5F5F5" th:text="${tituloSubCard}"></p>
+    <div class="card-body" style="padding-right: 50px; padding-left: 50px">
+
+        <!--
+        <div th:object="${patient}" th:remove="tag">
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" style="padding-left: 100px; font-size: 12px">
+                <div class="col-sm-10" th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
+            </div>
+        </div>-->
+
+        <form th:action="@{/form}" th:object="${patient}" method="post">
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Día de la cita</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" th:field="*{appointment.appointmentDay}"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('appointment.appointmentDay')}" th:errors="*{appointment.appointmentDay}">
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Hora de la cita</label>
+                <div class="col-sm-4">
+                    <input type="time" class="form-control" th:field="*{appointment.appointmentHour}"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small class="form-text text-danger"
+                           th:if="${#fields.hasErrors('appointment.appointmentHour')}" th:errors="*{appointment.appointmentHour}">
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-4">
+                    <input type="text" th:field="*{patientName}" class="form-control" placeholder="Nombre"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small class="form-text text-danger"
+                           th:if="${#fields.hasErrors('patientName')}" th:errors="*{patientName}">
+                    </small>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" th:field="*{patientLastname}" class="form-control" placeholder="Apellido"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('patientLastname')}" th:errors="*{patientLastname}">
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-4">
+                    <input type="email" th:field="*{patientEmail}" class="form-control" placeholder="Correo Electronico"
+                           th:errorclass="'form-control alert-danger'" /> <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('patientEmail')}" th:errors="*{patientEmail}"></small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Dirección</label>
+                <div class="col-sm-8" style="margin-bottom: 18px">
+                    <input type="text" th:field="*{address.address1}" class="form-control" placeholder="Dirección"
+                           th:errorclass="'form-control alert-danger'" /> <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('address.address1')}" th:errors="*{address.address1}"></small>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8" style="margin-bottom: 18px">
+                    <input type="text" th:field="*{address.address2}" class="form-control" placeholder="Dirección 2"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('address.address2')}" th:errors="*{address.address2}">
+                    </small>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4" style="margin-bottom: 18px">
+                    <input type="text" th:field="*{address.city}" class="form-control" placeholder="Ciudad"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}">
+                    </small>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" th:field="*{address.region}" class="form-control" placeholder="Región"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('patientEmail')}" th:errors="*{address.region}">
+                    </small>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <input type="number" th:field="*{address.patientCp}" class="form-control" placeholder="Código Portal"
+                           th:errorclass="'form-control alert-danger'" />
+                    <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('address.patientCp')}" th:errors="*{address.patientCp}">
+                    </small>
+                </div>
+                <div class="col-sm-4">
+                    <select th:field="*{address.country}" class="form-control">
+                        <option value="">Seleccione un país...</option>
+                        <option th:each="country: ${countryList}" th:text="${country}" th:value="${country}"></option>
+                    </select>
+                    <small class="form-text text-danger"
+                           th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}">
+
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" th:field="*{patientBirthday}"
+                           th:errorclass="'form-control alert-danger'" /> <small
+                        class="form-text text-danger"
+                        th:if="${#fields.hasErrors('patientBirthday')}" th:errors="*{patientBirthday}"></small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <center>
+                    <input type="submit" value="Crear Paciente" class="btn-lg btn-secondary" style="font-size: 20px; margin-top: 50px"/>
+                    </center>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<footer th:replace="layout/navLayout :: footer"></footer>
+</body>
+</html>

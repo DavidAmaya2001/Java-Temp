@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/navLayout :: head"></head>
+<body style="background-image: url('/images/background.jpg'); background-position: center 150px; ">
+
+	<header th:replace="layout/navLayout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light" >
+			<div class="card-header" style="font-size: 30px; text-align: center" th:text="${titulo}"></div>
+			<div class="card-body">
+				<h4 class="card-title">
+					<a th:href="@{/form}" class="btn btn-primary">Añadir nueva cita</a>
+				</h4>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Pais</th>
+							<th>Email</th>
+							<th>Fecha de Cita</th>
+							<th>Hora de Cita</th>
+							<th>editar</th>
+							<th>eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="patientitem: ${patient}">
+							<td th:text="${patientitem.id}"></td>
+							<td th:text="${patientitem.patientName}"></td>
+							<td th:text="${patientitem.patientLastname}"></td>
+							<td th:text="${patientitem.address.country}"></td>
+							<td th:text="${patientitem.patientEmail}"></td>
+							<td th:text="${patientitem.appointment.appointmentDay}"></td>
+							<td th:text="${patientitem.appointment.appointmentHour}"></td>
+							<td><a class="btn btn-primary btn-sm"
+								th:href="@{/form/} + ${patientitem.id}" th:text="'🛠️'" style="font-size: 18px"></a></td>
+							<td><a class="btn btn-danger btn-sm"
+								th:href="@{/eliminar/} + ${patientitem.id}" th:text="'✖️'" style="font-size: 18px"
+								onclick="return confirm('Est�s seguro que quieres eliminar?');"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+				<nav th:replace="paginator-nav :: paginator"></nav>
+			</div>
+		</div>
+		
+	</div>
+	
+	<footer th:replace="layout/navLayout :: footer"></footer>
+</body>
+</html>
